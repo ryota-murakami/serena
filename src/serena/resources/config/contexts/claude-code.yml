@@ -5,6 +5,9 @@ prompt: |
 
 excluded_tools:
   - replace_content
+  - initial_instructions
+  - onboarding
+  - check_onboarding_performed
 
 tool_description_overrides: {}
 
