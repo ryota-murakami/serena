@@ -29,9 +29,6 @@ class PromptFactory(PromptFactoryBase):
     def create_summarize_changes(self) -> str:
         return self._render_prompt("summarize_changes", locals())
 
-    def create_prepare_for_new_conversation(self) -> str:
-        return self._render_prompt("prepare_for_new_conversation", locals())
-
     def create_system_prompt(
         self, *, available_markers: Any, available_tools: Any, context_system_prompt: Any, mode_system_prompts: Any
     ) -> str:

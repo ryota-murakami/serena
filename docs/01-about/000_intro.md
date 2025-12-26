@@ -11,4 +11,4 @@
 Therefore, you can think of Serena as providing IDE-like tools to your LLM/coding agent.
 With it, the agent no longer needs to read entire files, perform grep-like searches or string replacements to find and
 edit the right code.
-Instead, it can use code-centred tools like `find_symbol`, `find_referencing_symbols` and `insert_after_symbol`.
+Instead, it can use code-centred tools like `find_symbol`, `find_referencing_symbols` and `rename_symbol`.

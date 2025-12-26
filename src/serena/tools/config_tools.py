@@ -35,11 +35,3 @@ class SwitchModesTool(Tool, ToolMarkerOptional):
         result_str += "\n".join([mode_instance.prompt for mode_instance in mode_instances]) + "\n"
         result_str += f"Active tools: {', '.join(self.agent.get_active_tool_names())}"
         return result_str
-
-
-class GetCurrentConfigTool(Tool):
-    """Get current agent config."""
-
-    def apply(self) -> str:
-        """Print current configuration."""
-        return self.agent.get_current_config_overview()

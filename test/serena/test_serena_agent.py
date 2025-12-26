@@ -12,7 +12,7 @@ import pytest
 from serena.agent import SerenaAgent
 from serena.config.serena_config import ProjectConfig, RegisteredProject, SerenaConfig
 from serena.project import Project
-from serena.tools import SUCCESS_RESULT, FindReferencingSymbolsTool, FindSymbolTool, ReplaceContentTool, ReplaceSymbolBodyTool
+from serena.tools import SUCCESS_RESULT, FindReferencingSymbolsTool, FindSymbolTool, ReplaceContentTool
 from solidlsp.ls_config import Language
 from test.conftest import get_repo_path, language_tests_enabled
 from test.solidlsp import clojure as clj
@@ -372,17 +372,13 @@ class TestSerenaAgent:
     def test_non_unique_symbol_reference_error(self, serena_agent: SerenaAgent, name_path: str, relative_path: str):
         """
         Tests whether the tools operating on a well-defined symbol raises an error when the symbol reference is non-unique.
-        We exemplarily test a retrieval tool (FindReferencingSymbolsTool) and an editing tool (ReplaceSymbolBodyTool).
+        We test a retrieval tool (FindReferencingSymbolsTool).
         """
         match_text = "multiple"
 
         find_refs_tool = serena_agent.get_tool(FindReferencingSymbolsTool)
         with pytest.raises(ValueError, match=match_text):
             find_refs_tool.apply(name_path=name_path, relative_path=relative_path)
-
-        replace_symbol_body_tool = serena_agent.get_tool(ReplaceSymbolBodyTool)
-        with pytest.raises(ValueError, match=match_text):
-            replace_symbol_body_tool.apply(name_path=name_path, relative_path=relative_path, body="")
 
     @pytest.mark.parametrize(
         "serena_agent",

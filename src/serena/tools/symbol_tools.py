@@ -119,36 +119,6 @@ class FindReferencingSymbolsTool(Tool, ToolMarkerSymbolicRead):
         return self._limit_length(result, max_answer_chars)
 
 
-class ReplaceSymbolBodyTool(Tool, ToolMarkerSymbolicEdit):
-    """Replace symbol definition."""
-
-    def apply(self, name_path: str, relative_path: str, body: str) -> str:
-        """Replace symbol body."""
-        code_editor = self.create_code_editor()
-        code_editor.replace_body(name_path, relative_file_path=relative_path, body=body)
-        return SUCCESS_RESULT
-
-
-class InsertAfterSymbolTool(Tool, ToolMarkerSymbolicEdit):
-    """Insert content after symbol."""
-
-    def apply(self, name_path: str, relative_path: str, body: str) -> str:
-        """Insert content after symbol end."""
-        code_editor = self.create_code_editor()
-        code_editor.insert_after_symbol(name_path, relative_file_path=relative_path, body=body)
-        return SUCCESS_RESULT
-
-
-class InsertBeforeSymbolTool(Tool, ToolMarkerSymbolicEdit):
-    """Insert content before symbol."""
-
-    def apply(self, name_path: str, relative_path: str, body: str) -> str:
-        """Insert content before symbol start."""
-        code_editor = self.create_code_editor()
-        code_editor.insert_before_symbol(name_path, relative_file_path=relative_path, body=body)
-        return SUCCESS_RESULT
-
-
 class RenameSymbolTool(Tool, ToolMarkerSymbolicEdit):
     """Rename symbol across codebase."""
 
