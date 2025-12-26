@@ -24,7 +24,7 @@ from serena.ls_manager import LanguageServerManager
 from serena.project import Project
 from serena.prompt_factory import SerenaPromptFactory
 from serena.task_executor import TaskExecutor
-from serena.tools import ActivateProjectTool, GetCurrentConfigTool, ReplaceContentTool, Tool, ToolMarker, ToolRegistry
+from serena.tools import ActivateProjectTool, ReplaceContentTool, Tool, ToolMarker, ToolRegistry
 from serena.util.gui import system_has_usable_display
 from serena.util.inspection import iter_subclasses
 from serena.util.logging import MemoryLogHandler
@@ -368,7 +368,7 @@ class SerenaAgent:
                 )
                 tool_inclusion_definitions.append(
                     ToolInclusionDefinition(
-                        excluded_tools=[ActivateProjectTool.get_name_from_cls(), GetCurrentConfigTool.get_name_from_cls()]
+                        excluded_tools=[ActivateProjectTool.get_name_from_cls()]
                     )
                 )
                 tool_inclusion_definitions.append(project.project_config)

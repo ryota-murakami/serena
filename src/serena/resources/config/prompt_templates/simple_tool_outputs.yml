@@ -62,14 +62,7 @@ prompts:
     Summarize all the changes you have made to the codebase over the course of the conversation.
     Explore the diff if needed (e.g. by using `git diff`) to ensure that you have not missed anything.
     Explain whether and how the changes are covered by tests. Explain how to best use the new code, how to understand it,
-    which existing code it affects and interacts with. Are there any dangers (like potential breaking changes or potential new problems) 
+    which existing code it affects and interacts with. Are there any dangers (like potential breaking changes or potential new problems)
     that the user should be aware of? Should any new documentation be written or existing documentation updated?
     You can use tools to explore the codebase prior to writing the summary, but don't write any new code in this step until
     the summary is complete.
-
-  prepare_for_new_conversation: |
-    You have not yet completed the current task but we are running out of context.
-    {mode_prepare_for_new_conversation}
-    Imagine that you are handing over the task to another person who has access to the
-    same tools and memory files as you do, but has not been part of the conversation so far.
-    Write a summary that can be used in the next conversation to a memory file using the `write_memory` tool.

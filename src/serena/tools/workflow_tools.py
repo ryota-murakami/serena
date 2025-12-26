@@ -61,14 +61,6 @@ class SummarizeChangesTool(Tool, ToolMarkerOptional):
         return self.prompt_factory.create_summarize_changes()
 
 
-class PrepareForNewConversationTool(Tool):
-    """Prepare for new conversation."""
-
-    def apply(self) -> str:
-        """Call on explicit user request only."""
-        return self.prompt_factory.create_prepare_for_new_conversation()
-
-
 class InitialInstructionsTool(Tool, ToolMarkerDoesNotRequireActiveProject):
     """Get Serena instructions manual."""
 
