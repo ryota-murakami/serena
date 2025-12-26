@@ -1,4 +1,3 @@
-import json
 import logging
 import os
 from pathlib import Path
@@ -138,10 +137,9 @@ class Project(ToStringMixin):
         msg += f"\nProgramming languages: {languages_str}; file encoding: {self.project_config.encoding}"
         memories = self.memories_manager.list_memories()
         if memories:
-            msg += (
-                f"\nAvailable project memories: {json.dumps(memories)}\n"
-                + "Use the `read_memory` tool to read these memories later if they are relevant to the task."
-            )
+            # Context optimization: show count only, use list_memories tool for full list
+            msg += f"\nAvailable project memories: {len(memories)}\n"
+            msg += "Use the `read_memory` tool to read these memories later if they are relevant to the task."
         if self.project_config.initial_prompt:
             msg += f"\nAdditional project-specific instructions:\n {self.project_config.initial_prompt}"
         return msg
