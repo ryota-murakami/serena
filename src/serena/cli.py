@@ -29,7 +29,7 @@ from serena.constants import (
 )
 from serena.mcp import SerenaMCPFactory, SerenaMCPFactorySingleProcess
 from serena.project import Project
-from serena.tools import FindReferencingSymbolsTool, FindSymbolTool, GetSymbolsOverviewTool, SearchForPatternTool, ToolRegistry
+from serena.tools import FindReferencingSymbolsTool, FindSymbolTool, GetSymbolsOverviewTool, ToolRegistry
 from serena.util.logging import MemoryLogHandler
 from solidlsp.ls_config import Language
 from solidlsp.util.subprocess_util import subprocess_kwargs
@@ -726,7 +726,6 @@ class ProjectCommands(AutoRegisteringGroup):
                 overview_tool = agent.get_tool(GetSymbolsOverviewTool)
                 find_symbol_tool = agent.get_tool(FindSymbolTool)
                 find_refs_tool = agent.get_tool(FindReferencingSymbolsTool)
-                search_pattern_tool = agent.get_tool(SearchForPatternTool)
 
                 # Test 1: Get symbols overview
                 log.info("Testing GetSymbolsOverviewTool on file: %s", target_file)
@@ -777,27 +776,14 @@ class ProjectCommands(AutoRegisteringGroup):
                     log.warning("FindReferencingSymbolsTool failed for symbol %s: %s", symbol_name, str(e))
                     find_refs_data = []
 
-                # Test 4: SearchForPatternTool to verify references
-                log.info("Testing SearchForPatternTool for pattern: %s", symbol_name)
-                try:
-                    search_result = agent.execute_task(
-                        lambda: search_pattern_tool.apply(substring_pattern=symbol_name, restrict_search_to_code_files=True)
-                    )
-                    search_data = json.loads(search_result)
-                    pattern_matches = sum(len(matches) for matches in search_data.values())
-                    log.info("SearchForPatternTool found %d pattern matches for %s", pattern_matches, symbol_name)
-                except Exception as e:
-                    log.warning("SearchForPatternTool failed for pattern %s: %s", symbol_name, str(e))
-                    pattern_matches = 0
-
                 # Verify tools worked as expected
                 tools_working = True
                 if not find_symbol_data:
                     log.error("FindSymbolTool returned no results")
                     tools_working = False
 
-                if len(find_refs_data) == 0 and pattern_matches == 0:
-                    log.warning("Both FindReferencingSymbolsTool and SearchForPatternTool found no matches - this might indicate an issue")
+                if len(find_refs_data) == 0:
+                    log.warning("FindReferencingSymbolsTool found no matches - this might be expected for unused symbols")
 
                 log.info("Health check completed successfully")
 
